@@ -5,29 +5,26 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [Header("Camera")]
-    [SerializeField] private GameObject hipFireCam;
-    [SerializeField] private GameObject ADSCam;
-
+    [SerializeField] private GameObject hipFireCam; // Hip Fire Camera Set Karna
+    [SerializeField] private GameObject ADSCam; // Aim Down Sights Camera Set Karna
 
     private void Update()
     {
-        SwitchCameras();
+        SwitchCameras(); // Camera Ko Switch Karne Wala Function Call Karna
     }
 
-
-    private void SwitchCameras()
+    private void SwitchCameras() // Camera Switch Karne Wala Function
     {
+        // Agar Right Mouse Button Dabaya Hai Toh ADS Camera Show Karna
         if (Input.GetKey(KeyCode.Mouse1))
         {
-            hipFireCam.SetActive(false);
-            ADSCam.SetActive(true);
+            hipFireCam.SetActive(false); // Hip Fire Camera Ko Band Karna
+            ADSCam.SetActive(true); // ADS Camera Ko On Karna
         }
-
         else
         {
-            hipFireCam.SetActive(true);
-            ADSCam.SetActive(false);
+            hipFireCam.SetActive(true); // Hip Fire Camera Ko On Karna
+            ADSCam.SetActive(false); // ADS Camera Ko Band Karna
         }
-
     }
 }
