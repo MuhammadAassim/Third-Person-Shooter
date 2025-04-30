@@ -18,7 +18,7 @@ public class Aim : MonoBehaviour
     private float xAxis;
     private float yAxis;
 
-    [SerializeField] private Vector3 mouseWorldPosition;
+    [HideInInspector] public Vector3 mouseWorldPosition;
     private RaycastHit hitInfo;
 
     private bool isAiming;
