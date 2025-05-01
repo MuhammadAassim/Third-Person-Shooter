@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize(); // Right Vector Ko Normalize (Yani 1 aur -1 Kar Diya) Kar Raha Hai
 
         this.moveDir = camForward * moveDir.z + camRight * moveDir.x; // Final Move Direction Assign Ki
-
+        
         rb.velocity = this.moveDir * currentSpeed + new Vector3(0, rb.velocity.y, 0); // Player Ko Move Karwaya 
     }
 

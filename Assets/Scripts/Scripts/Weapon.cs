@@ -11,11 +11,23 @@ public class Weapon : MonoBehaviour
     [Header("Aim")]
     [SerializeField] private Aim aim; // Aim Script Ko Set Karo
 
+    private bool isAiming;
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) // Mouse Ka Left Button Press Karne Par Shooting Karna
+        if (Input.GetKey(KeyCode.Mouse1))
         {
-            Shooting(); // Shooting Function Ko Call Karna
+            isAiming = true;
+        }
+        else
+        {
+            isAiming = false;
+        }
+
+        // Only allow shooting when aiming
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming)
+        {
+            Shooting();
         }
     }
 
@@ -24,7 +36,6 @@ public class Weapon : MonoBehaviour
         // Aim Ki World Position Se Firepoint Tak Ka Direction Calculate Karna
         Vector3 aimDir = (aim.mouseWorldPosition - firepoint.position).normalized;
 
-        // Projectile Ko Instantiate Karna, Firepoint Se Aim Direction Ki Taraf
-        Instantiate(projectilePrefab, firepoint.position, Quaternion.LookRotation(aimDir, Vector3.up));
+        Instantiate(projectilePrefab, firepoint.position, Quaternion.LookRotation(aimDir, Vector3.up)); // Projectile Ko Instantiate Karna, Firepoint Se Aim Direction Ki Taraf
     }
 }

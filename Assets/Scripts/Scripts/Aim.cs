@@ -15,13 +15,17 @@ public class Aim : MonoBehaviour
     [SerializeField] private float mouseSens; // Mouse Ki Sensitivity Set Karo
     [SerializeField] private float yAxisClamp; // Y Axis Ko Clamp Karne Ki Limit Set Karo
 
+    [Header("Raycast Settings")]
+    [SerializeField] private LayerMask raycastMask; // Layer Mask Set Karo Jisse Gun Ya UI Ignore Ho
+
     private float xAxis; // X Axis Ki Rotation Ki Value
     private float yAxis; // Y Axis Ki Rotation Ki Value
 
     [HideInInspector] public Vector3 mouseWorldPosition; // Mouse Ki World Position 
     private RaycastHit hitInfo; // Raycast Hit Information
 
-    private bool isAiming; // Aiming Kar Raha Hai Ya Nahi
+    private bool isAiming = false; // Aiming Kar Raha Hai Ya Nahi
+
 
     private void Update()
     {
@@ -44,7 +48,7 @@ public class Aim : MonoBehaviour
     {
         Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2); // Screen Ka Center
         Ray ray = Camera.main.ScreenPointToRay(screenCenter); // Screen Ke Center Se Raycast Ko Fire Karna
-        Physics.Raycast(ray, out hitInfo, Mathf.Infinity); // Raycast Ko Perform Karna Aur Hit Info Ko Get Karna
+        Physics.Raycast(ray, out hitInfo, Mathf.Infinity, raycastMask); // Raycast Ko Perform Karna Aur Mask Use Karna
     }
 
     private void HandleRotation() // Player Ki Rotation Ko Handle Karne Wala Function
@@ -68,11 +72,21 @@ public class Aim : MonoBehaviour
         }
     }
 
-    private void TargetPosition() // Target Ki Position Ko Update Karne Wala Function
+    public void TargetPosition() // Target Ki Position Ko Update Karne Wala Function
     {
         if (hitInfo.collider != null) // Agar Raycast Ne Kisi Object Ko Hit Kiya Ho
         {
             aimPos.position = hitInfo.point; // Aim Ki Position Ko Hit Point Pe Set Karna
         }
+    }
+
+    public Vector3 GetAimPoint() // Mouse Ki Hit Point Ko Dusre Scripts Se Access Karne Ke Liye
+    {
+        return mouseWorldPosition;
+    }
+
+    public bool IsAiming()
+    {
+        return isAiming;
     }
 }
