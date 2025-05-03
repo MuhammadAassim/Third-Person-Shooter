@@ -24,7 +24,7 @@ public class Aim : MonoBehaviour
     [HideInInspector] public Vector3 mouseWorldPosition; // Mouse Ki World Position 
     private RaycastHit hitInfo; // Raycast Hit Information
 
-    private bool isAiming = false; // Aiming Kar Raha Hai Ya Nahi
+    public bool isAiming = false; // Aiming Kar Raha Hai Ya Nahi
 
 
     private void Update()
@@ -83,10 +83,5 @@ public class Aim : MonoBehaviour
     public Vector3 GetAimPoint() // Mouse Ki Hit Point Ko Dusre Scripts Se Access Karne Ke Liye
     {
         return mouseWorldPosition;
-    }
-
-    public bool IsAiming()
-    {
-        return isAiming;
     }
 }

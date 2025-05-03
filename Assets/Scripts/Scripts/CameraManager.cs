@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraManager : MonoBehaviour
 {
     [Header("Camera")]
     [SerializeField] private GameObject hipFireCam; // Hip Fire Camera Set Karna
     [SerializeField] private GameObject ADSCam; // Aim Down Sights Camera Set Karna
+
 
     private void Update()
     {

@@ -87,7 +87,8 @@ public class ProjectileMoveScript : MonoBehaviour {
 			rb.position += (transform.forward + offset) * (speed * Time.deltaTime);   
     }
 
-	void OnCollisionEnter (Collision co) {
+    void OnCollisionEnter(Collision co)
+    {
         if (!bounce)
         {
             if (co.gameObject.tag != "Bullet" && !collided)
@@ -115,7 +116,8 @@ public class ProjectileMoveScript : MonoBehaviour {
                 Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
                 Vector3 pos = contact.point;
 
-                if (hitPrefab != null)
+                // 🔽 Don't spawn hitPrefab if target has tag "Enemy"
+                if (hitPrefab != null && co.gameObject.tag != "Enemy")
                 {
                     var hitVFX = Instantiate(hitPrefab, pos, rot) as GameObject;
 
@@ -137,12 +139,13 @@ public class ProjectileMoveScript : MonoBehaviour {
             rb.useGravity = true;
             rb.drag = 0.5f;
             ContactPoint contact = co.contacts[0];
-            rb.AddForce (Vector3.Reflect((contact.point - startPos).normalized, contact.normal) * bounceForce, ForceMode.Impulse);
-            Destroy ( this );
+            rb.AddForce(Vector3.Reflect((contact.point - startPos).normalized, contact.normal) * bounceForce, ForceMode.Impulse);
+            Destroy(this);
         }
-	}
+    }
 
-	public IEnumerator DestroyParticle (float waitTime) {
+
+    public IEnumerator DestroyParticle (float waitTime) {
 
 		if (transform.childCount > 0 && waitTime != 0) {
 			List<Transform> tList = new List<Transform> ();

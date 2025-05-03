@@ -6,36 +6,44 @@ public class Weapon : MonoBehaviour
 {
     [Header("ShootingSettings")]
     [SerializeField] private Transform projectilePrefab; // Projectile Ka Prefab Set Karo
-    [SerializeField] private Transform firepoint; // Firepoint Ki Position Set Karo
+    [SerializeField] private Transform firepoint; // Fire Karne Ki Jagah (Firepoint) Set Karo
 
     [Header("Aim")]
-    [SerializeField] private Aim aim; // Aim Script Ko Set Karo
+    [SerializeField] private Aim aim; // Aim Script Ko Set Karo Jo Mouse Ki Position De Raha Hai
 
-    private bool isAiming;
+    private bool isAiming; // Yeh Check Karne Ke Liye Ke Player Aim Kar Raha Hai Ya Nahi
+
+    private Animator animator; // Animator Set Karo 
+
+
+
+    private void Start()
+    {
+        animator = GetComponentInParent<Animator>(); // Animator Component Liya
+    }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse1))
+        if (Input.GetKey(KeyCode.Mouse1)) // Right Click Press Kiya Gaya Hai
         {
-            isAiming = true;
+            isAiming = true; // Aim On Hai
         }
         else
         {
-            isAiming = false;
+            isAiming = false; // Aim Off Hai
         }
 
-        // Only allow shooting when aiming
-        if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isAiming) // Agar Left Click Aur Aim On Hai
         {
-            Shooting();
+            Shooting(); // Fire Kare
+            animator.SetTrigger("Shoot"); //Shooting Animation Play Hogi
         }
     }
 
-    private void Shooting() // Shooting Karne Wala Function
+    private void Shooting() // Fire Karne Ka Function
     {
-        // Aim Ki World Position Se Firepoint Tak Ka Direction Calculate Karna
-        Vector3 aimDir = (aim.mouseWorldPosition - firepoint.position).normalized;
+        Vector3 aimDir = (aim.mouseWorldPosition - firepoint.position).normalized; // Aim Ki Direction Calculate Karna
 
-        Instantiate(projectilePrefab, firepoint.position, Quaternion.LookRotation(aimDir, Vector3.up)); // Projectile Ko Instantiate Karna, Firepoint Se Aim Direction Ki Taraf
+        Instantiate(projectilePrefab, firepoint.position, Quaternion.LookRotation(aimDir, Vector3.up)); // Naya Projectile Firepoint Se Aim Direction Mein Bhejna
     }
 }

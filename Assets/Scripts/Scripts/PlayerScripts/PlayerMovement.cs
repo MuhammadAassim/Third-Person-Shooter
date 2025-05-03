@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Rigidbody")]
@@ -19,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sprintSpeed; // Bhaangnay Ki Speed
     [SerializeField] private float aimSpeed;    //Aim KI Position Mein Speed
     [SerializeField] private float aimBackSpeed; //Aim ki Position Mein Picha ki Sped 
-    [SerializeField] private float rotationSpeed; //Ghoomnay ki Position Mein Picha ki Sped 
+    [SerializeField] private float rotationSpeed; //Ghoomnay ki Position Mein Picha ki Speed 
 
     [SerializeField] private float sprintSmoothing; //Walk aur Sprinting Ko Smooth Karnay Ki Float
     private float currentSpeed; //Woh Speed Jo Har State Kay Enter Or Exit PAr Set Hoti Hai 
@@ -67,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
     {
         MyInputs(); //Yaha Par Inputs Liya
         currentState.UpdateState(this); // Yeh Current State Ko Update kar Raha Hai Is Object Ke Sath
+        Debug.Log(currentSpeed);
     }
 
     public void SwitchState(MovementBaseState state) //State Change Karanay Functions
@@ -99,8 +99,8 @@ public class PlayerMovement : MonoBehaviour
         camRight.Normalize(); // Right Vector Ko Normalize (Yani 1 aur -1 Kar Diya) Kar Raha Hai
 
         this.moveDir = camForward * moveDir.z + camRight * moveDir.x; // Final Move Direction Assign Ki
-        
-        rb.velocity = this.moveDir * currentSpeed + new Vector3(0, rb.velocity.y, 0); // Player Ko Move Karwaya 
+
+        rb.velocity = this.moveDir * currentSpeed + new Vector3(0, rb.velocity.y, 0); // Player Ko Move Karwaya
     }
 
 
@@ -123,13 +123,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void FootStep() // Footstep Sound Ya Action Ke Liye Kyo Editor Mein Error Dey Raha tha
     {
-
+        Debug.Log("Running");
     }
 
 
     public void SetRotationOnMove(bool newRotateOnMove) // RotateOnMove Karnay Wala Function
     {
         rotateOnMove = newRotateOnMove; // Nayi Value Rotation
-    } 
+    }
 
 }
